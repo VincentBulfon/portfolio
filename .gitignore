@@ -4,6 +4,8 @@
 wp-content/*
 !wp-content/themes
 wp-content/themes/*
-!wp-content/themes/customtheme
-wp-content/themes/customtheme/assets
-wp-content/themes/customtheme/assets/nodes_modules
+!wp-content/themes/portfolio
+wp-content/themes/customtheme/public
+wp-content/themes/customtheme/src/assets
+wp-content/themes/customtheme/src/fonts
+wp-content/themes/customtheme/nodes_modules
