@@ -1,0 +1,611 @@
+//screen readers only
+.sro {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+//general styles
+.link {
+  text-decoration: none;
+}
+
+//color darkest yellow
+.main__link,
+.menu__icon,
+.hero__title {
+  color: $dark;
+}
+
+//display flex
+.header,
+.header__wrapper,
+.nav,
+.hero__wrapper,
+.card__head,
+.socials,
+.footer__actions {
+  display: flex;
+}
+
+.header {
+  background-color: $green;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-height: 100vh;
+}
+
+.header__wrapper,
+.hero__wrapper {
+  width: 88.75%;
+}
+
+.hero__wrapper {
+  margin: 78px auto 0;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - 78px);
+}
+
+.header__wrapper {
+  position: fixed;
+  width: 88.75%;
+  padding: 14px calc((100% - 88.75%) / 2);
+  justify-content: space-between;
+}
+
+.main__link {
+  font-family: "Transat text";
+  font-weight: Bold;
+  font-size: 1.563em;
+  max-width: 118px;
+  z-index: 4000;
+}
+
+//hide it when don't need burger menu anymore
+#menu {
+  position: absolute;
+  top: -999999px;
+  &:checked ~ .nav {
+    left: 0px;
+  }
+}
+
+.menu__icon,
+.menu__icon::after,
+.menu__icon::before {
+  display: block;
+  background-color: $dark;
+  min-width: 26px;
+  min-height: 3px;
+  border-radius: 1px;
+  z-index: 4000;
+}
+
+.menu__icon::after,
+.menu__icon::before,
+.nav {
+  position: absolute;
+}
+
+.menu__icon {
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    right: 0;
+  }
+  &::before {
+    top: 7px;
+  }
+  &::after {
+    top: 14px;
+  }
+  position: relative;
+  top: 0;
+
+  margin-top: 13.5px;
+}
+
+.nav {
+  top: 0;
+  left: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: red;
+  transition: 0.2s ease-in-out;
+}
+
+.hero__title {
+  margin-top: 1.5623689384em; //95.367px
+  font-size: 3.815em; //61.04px
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: 900;
+  font-family: "Transat Text";
+}
+
+.hero__subtitle {
+  margin-top: 2.4414em;
+  font-size: 1.25em; //20px
+  line-height: 1.4;
+  text-align: center;
+  display: block;
+  font-family: "Niveau Grotesk";
+  color: $mild;
+}
+
+//mouse animation
+.hero__scroll {
+  margin-bottom: 2em;
+}
+
+.hero__link {
+  margin-top: 1em;
+  font-family: sans-serif;
+  letter-spacing: 6px;
+  color: #4e5559;
+  display: block;
+  text-align: center;
+  animation: changeTextColor 10s ease-out infinite,
+    movingText 10s ease-out infinite;
+  font-size: 0.8em;
+}
+
+.hero__animation {
+  background: $dark
+    linear-gradient(transparent 0%, transparent 50%, $green 50%, $green 100%);
+  position: relative;
+  width: calc(52px / 2);
+  height: calc(88px / 2);
+  border-radius: 50px;
+  background-size: 100% 200%; //100% of width 200% height
+  animation: colorSlide 10s linear infinite, movingMouse 10s ease-out infinite;
+  margin: 0 auto;
+}
+
+.hero__animation:before,
+.hero__animation:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.hero__animation:before {
+  //coverring to make the effect
+  width: calc(48px / 2);
+  height: calc(84px / 2);
+  background-color: $dark-green;
+  border-radius: 50px;
+}
+
+.hero__animation:after {
+  //the ball
+  background-color: $mild;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  animation: movingBall 10s linear infinite;
+}
+
+@keyframes colorSlide {
+  0% {
+    background-position: 0% 100%;
+  }
+
+  20% {
+    background-position: 0% 0%;
+  }
+
+  21% {
+    background-color: $mild;
+  }
+
+  29.99% {
+    background-color: $green;
+    background-position: 0% 0%;
+  }
+
+  30% {
+    background-color: $mild;
+    background-position: 0% 100%;
+  }
+
+  50% {
+    background-position: 0% 0%;
+  }
+
+  51% {
+    background-color: $mild;
+  }
+
+  59% {
+    background-color: $green;
+    background-position: 0% 0%;
+  }
+
+  60% {
+    background-color: $mild;
+    background-position: 0% 100%;
+  }
+
+  80% {
+    background-position: 0% 0%;
+  }
+
+  81% {
+    background-color: $mild;
+  }
+
+  90%,
+  100% {
+    background-color: $green;
+  }
+}
+
+@keyframes movingBall {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(-15px);
+  }
+
+  6% {
+    opacity: 1;
+    transform: scale(0.9) translateY(5px);
+  }
+
+  14% {
+    opacity: 0;
+    transform: scale(0.4) translateY(40px);
+  }
+
+  15%,
+  19% {
+    opacity: 0;
+    transform: scale(0.4) translateY(-15px);
+  }
+
+  28%,
+  29.99% {
+    opacity: 1;
+    transform: scale(1) translateY(-15px);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(1) translateY(-15px);
+  }
+
+  36% {
+    opacity: 1;
+    transform: scale(0.9) translateY(5px);
+  }
+
+  44% {
+    opacity: 0;
+    transform: scale(0.4) translateY(40px);
+  }
+
+  //half of the animation
+  45%,
+  49% {
+    opacity: 0;
+    transform: scale(0.4) translateY(-15px);
+  }
+
+  58%,
+  59.99% {
+    opacity: 1;
+    transform: scale(1) translateY(-15px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1) translateY(-15px);
+  }
+
+  66% {
+    opacity: 1;
+    transform: scale(0.9) translateY(5px);
+  }
+
+  74% {
+    opacity: 0;
+    transform: scale(0.4) translateY(40px);
+  }
+
+  75%,
+  79% {
+    opacity: 0;
+    transform: scale(0.4) translateY(-15px);
+  }
+
+  88%,
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(-15px);
+  }
+}
+
+@keyframes movingMouse {
+  0% {
+    transform: translateY(0);
+  }
+
+  20% {
+    transform: translateY(8px);
+  }
+
+  30% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+
+  60% {
+    transform: translateY(0);
+  }
+
+  80% {
+    transform: translateY(8px);
+  }
+
+  90% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes movingText {
+  0% {
+    transform: translateY(0);
+    letter-spacing: 6px;
+  }
+
+  20% {
+    transform: translateY(2px);
+    letter-spacing: 4px;
+  }
+
+  30% {
+    transform: translateY(0);
+    letter-spacing: 6px;
+  }
+
+  50% {
+    transform: translateY(2px);
+    letter-spacing: 4px;
+  }
+
+  60% {
+    transform: translateY(0);
+    letter-spacing: 6px;
+  }
+
+  80% {
+    transform: translateY(2px);
+    letter-spacing: 4px;
+  }
+
+  90% {
+    transform: translateY(0);
+    letter-spacing: 6px;
+  }
+}
+
+@keyframes changeTextColor {
+  0% {
+    color: $light;
+  }
+
+  21% {
+    color: $green;
+  }
+
+  30% {
+    color: $light;
+  }
+
+  51% {
+    color: $green;
+  }
+
+  60% {
+    color: $light;
+  }
+
+  81% {
+    color: $green;
+  }
+
+  90% {
+    color: $light;
+  }
+
+  100% {
+    color: $light;
+  }
+}
+
+//work section
+.card {
+  padding: 2.441em calc(100% - 88.75%) 3.052em;
+  background-color: $dark-green;
+  min-height: calc(326px - 2.441em - 3.052em);
+  &__header {
+    position: relative;
+  }
+  &--light {
+    background-color: $green;
+  }
+  &__head {
+    position: absolute;
+    color: $dark;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.64em;
+  }
+  &__head--over {
+    position: absolute;
+    left: 81.0483871%;
+    color: $light;
+    width: 900px;
+  }
+
+  &__title {
+    font-family: "Transat Text";
+    font-size: 1.25em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-weight: 900;
+    display: inline-block;
+  }
+
+  &__number {
+    position: relative;
+    font-family: "Niveau Grotesk";
+    font-weight: medium;
+    font-size: 2.441em;
+    display: inline-block;
+  }
+  &__number--positioned {
+    &--dark {
+      color: $dark-green;
+    }
+    position: absolute;
+    color: $green;
+    top: -3px;
+    left: 3px;
+    font-size: 1em;
+  }
+  &__number--desktop {
+    display: none;
+  }
+
+  &__figure {
+    position: absolute;
+    transform: translateX(-81.0483871%);
+    max-height: 248px;
+    max-width: 320px;
+    overflow: hidden;
+  }
+
+  &__image {
+    max-width: 100%;
+  }
+
+  &__body {
+    //clearfix for bottom link in float
+    &::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    position: relative;
+    z-index: 1;
+    color: $white;
+    font-family: "Niveau Grotesk";
+    line-height: 1.4;
+    margin-top: 6em;
+  }
+  &__link {
+    &::after {
+      background-color: $green;
+    }
+
+    font-size: 1.25em;
+    float: right;
+    color: $dark;
+    margin-top: 2.441em;
+    margin-right: 1em;
+  }
+
+  &__link--dark {
+    &::after {
+      background-color: $dark-green;
+    }
+  }
+}
+
+//all links with colored bottom
+.link__underscore {
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0.75em;
+    left: 20%;
+    height: 0.75em;
+    width: 90%;
+    z-index: -1;
+  }
+  position: relative;
+}
+
+//remove before adding new rules on footer
+.footer {
+  background-color: $light;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 calc((100% - 88.75%) / 2);
+  &__intro {
+    font-size: 1.563em;
+    font-weight: 500;
+    margin-top: 1.95312em;
+    text-align: center;
+    font-family: "Niveau Grotesk";
+  }
+  &__link {
+    &::after {
+      background-color: $dark;
+      top: 0.4em;
+    }
+    color: $dark-green;
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin: 1.95312em auto;
+    font-size: 1.563em;
+    font-family: serif;
+    font-family: "Niveau Grotesk";
+    font-weight: 900;
+    z-index: 1;
+  }
+  &__actions {
+    justify-content: space-between;
+  }
+  &__social__logo {
+    width: 50px;
+    //correct the bottom of svg
+    margin-bottom: -4%;
+    height: auto;
+    fill: $green;
+  }
+}
+
+.secondary__link {
+  font-family: "Niveau Grotesk";
+  text-transform: lowercase;
+  color: $green;
+}
+
+.secondary__item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.footer__actions {
+  align-items: flex-end;
+}

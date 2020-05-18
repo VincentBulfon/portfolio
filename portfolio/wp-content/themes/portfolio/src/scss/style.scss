@@ -1,0 +1,10 @@
+@import "variables.scss";
+@import "reset.scss";
+@import "mobile.scss";
+@import "desktop.scss";
+
+//general display
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
