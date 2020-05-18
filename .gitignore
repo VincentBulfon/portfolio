@@ -5,7 +5,7 @@ wp-content/*
 !wp-content/themes
 wp-content/themes/*
 !wp-content/themes/portfolio
-wp-content/themes/customtheme/public
-wp-content/themes/customtheme/src/assets
-wp-content/themes/customtheme/src/fonts
-wp-content/themes/customtheme/nodes_modules
+wp-content/themes/portfolio/public
+wp-content/themes/portfolio/src/assets
+wp-content/themes/portfolio/src/fonts
+wp-content/themes/portfolio/nodes_modules
