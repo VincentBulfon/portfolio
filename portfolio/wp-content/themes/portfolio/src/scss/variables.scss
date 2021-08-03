@@ -1,6 +1,10 @@
 //size
 $base: 16px;
 
+//fallbakc fonts
+$Niveau: "Niveau Grotesk", Tahoma, Verdana, Segoe, sans-serif;
+$Transat: "Transat Text", Tahoma, Verdana, Segoe, sans-serif;
+
 //colors
 $white: #fff;
 $dark: #f2b66d;
@@ -8,3 +12,8 @@ $mild: #f2cc85;
 $light: #f2d7b6;
 $green: rgb(37, 84, 89);
 $dark-green: #073040;
+
+//breakpoints
+$mediaMinWidth: 1202px;
+$mediaBp1Width: 500px;
+$mediaBp2Width: 850px;

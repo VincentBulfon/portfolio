@@ -1,611 +1,1035 @@
 //screen readers only
 .sro {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
 }
 //general styles
 .link {
-  text-decoration: none;
+    text-decoration: none;
+    font-weight: 400;
+    &::after {
+        transition: 0.325s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+}
+
+.link:active {
+    outline: none !important;
 }
 
 //color darkest yellow
 .main__link,
 .menu__icon,
-.hero__title {
-  color: $dark;
+.hero__title,
+.form__submit {
+    color: $dark;
 }
 
 //display flex
 .header,
-.header__wrapper,
+.header__container,
 .nav,
-.hero__wrapper,
+.hero__wrapper--landing,
 .card__head,
 .socials,
-.footer__actions {
-  display: flex;
+.footer__actions,
+.contact__form {
+    display: flex;
+}
+.header__wrapper,
+.me {
+    padding: 0.875em calc((100% - 77.5%) / 2);
+}
+.header {
+    background-color: $green;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 4000; //prevent links and other element from coming up on the nav
+    &__wrapper {
+        position: fixed;
+        width: 77.5%;
+
+        background-color: $green;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        z-index: 3999;
+    }
+    &__container {
+        margin: 0 auto;
+        max-width: 75em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
-.header {
-  background-color: $green;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  min-height: 100vh;
+.header--landing {
+    min-height: 100vh;
 }
 
 .header__wrapper,
-.hero__wrapper {
-  width: 88.75%;
+.hero__wrapper,
+.about {
+    width: 77.5%;
 }
 
 .hero__wrapper {
-  margin: 78px auto 0;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(100vh - 78px);
+    margin: 78px auto 0;
 }
 
-.header__wrapper {
-  position: fixed;
-  width: 88.75%;
-  padding: 14px calc((100% - 88.75%) / 2);
-  justify-content: space-between;
+.hero__content {
+    position: relative;
+    z-index: 2;
+}
+
+#hero__svg {
+    width: 100%;
+    max-height: 75%;
+    height: auto;
+    left: 0;
+    opacity: 0.05;
+    position: absolute;
+    top: 6.6193125em;
+    z-index: 1;
+}
+
+.path {
+    stroke-dasharray: 0;
+    stroke-dashoffset: 231;
+    animation: dash 10s alternate infinite;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 231;
+        stroke-dashoffset: 231;
+    }
+    60%,
+    100% {
+        stroke-dasharray: 231;
+        stroke-dashoffset: 0;
+    }
+}
+.hero__wrapper--landing {
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 78px);
 }
 
 .main__link {
-  font-family: "Transat text";
-  font-weight: Bold;
-  font-size: 1.563em;
-  max-width: 118px;
-  z-index: 4000;
+    font-weight: 900;
+    font-size: 1.563em;
+    max-width: 118px;
+    z-index: 4000;
 }
 
 //hide it when don't need burger menu anymore
 #menu {
-  position: absolute;
-  top: -999999px;
-  &:checked ~ .nav {
-    left: 0px;
-  }
+    position: absolute;
+    top: -999999px;
+    &:checked ~ .nav {
+        left: 0px;
+    }
 }
 
 .menu__icon,
 .menu__icon::after,
 .menu__icon::before {
-  display: block;
-  background-color: $dark;
-  min-width: 26px;
-  min-height: 3px;
-  border-radius: 1px;
-  z-index: 4000;
+    display: block;
+    background-color: $dark;
+    min-width: 26px;
+    min-height: 3px;
+    border-radius: 1px;
 }
 
 .menu__icon::after,
 .menu__icon::before,
 .nav {
-  position: absolute;
+    position: absolute;
 }
 
 .menu__icon {
-  &::before,
-  &::after {
-    content: "";
-    display: block;
-    right: 0;
-  }
-  &::before {
-    top: 7px;
-  }
-  &::after {
-    top: 14px;
-  }
-  position: relative;
-  top: 0;
-
-  margin-top: 13.5px;
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        right: 0;
+    }
+    &::before {
+        top: 7px;
+    }
+    &::after {
+        top: 14px;
+    }
+    position: relative;
+    overflow: visible; //make the after and before visible because they are hidden in sro
+    text-indent: -999999px;
+    margin-top: 13.5px;
 }
 
+.menu__label {
+    display: block;
+    height: 20px;
+    position: relative;
+    z-index: 4000;
+}
 .nav {
-  top: 0;
-  left: 100%;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  background-color: red;
-  transition: 0.2s ease-in-out;
+    top: 0;
+    left: 100vw;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: $green;
+    transition: 0.25s ease-out;
+    &__link {
+        &::after {
+            background-color: $dark-green;
+            top: 0.5em;
+        }
+        text-transform: lowercase;
+        display: inline-block;
+        margin-bottom: 1em;
+
+        z-index: 1;
+        color: $mild;
+        font-size: 1.563em;
+    }
 }
 
 .hero__title {
-  margin-top: 1.5623689384em; //95.367px
-  font-size: 3.815em; //61.04px
-  display: block;
-  width: 100%;
-  text-align: center;
-  font-weight: 900;
-  font-family: "Transat Text";
+    margin-top: 1.5623689384em; //95.367px
+    font-size: 3.815em; //61.04px
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
 }
 
+.nav__link,
+.hero__subtitle,
+.card__number,
+.footer__intro,
+.footer__link,
+.secondary__link,
+.contact__item,
+.form__label,
+.color,
+.me__link,
+.about,
+.me__content,
+.card__body,
+.contact__definition {
+    font-family: $Niveau;
+}
 .hero__subtitle {
-  margin-top: 2.4414em;
-  font-size: 1.25em; //20px
-  line-height: 1.4;
-  text-align: center;
-  display: block;
-  font-family: "Niveau Grotesk";
-  color: $mild;
+    margin-top: 2.4414em;
+    font-size: 1.25em; //20px
+    line-height: 1.4;
+    text-align: center;
+    display: block;
+    color: $mild;
 }
 
 //mouse animation
 .hero__scroll {
-  margin-bottom: 2em;
+    margin-bottom: 1.562em;
 }
 
 .hero__link {
-  margin-top: 1em;
-  font-family: sans-serif;
-  letter-spacing: 6px;
-  color: #4e5559;
-  display: block;
-  text-align: center;
-  animation: changeTextColor 10s ease-out infinite,
-    movingText 10s ease-out infinite;
-  font-size: 0.8em;
+    margin-top: 1.25em;
+    letter-spacing: 6px;
+    color: #4e5559;
+    display: block;
+    text-align: center;
+    animation: changeTextColor 10s ease-out infinite,
+        movingText 10s ease-out infinite;
+    font-size: 0.8em;
 }
 
 .hero__animation {
-  background: $dark
-    linear-gradient(transparent 0%, transparent 50%, $green 50%, $green 100%);
-  position: relative;
-  width: calc(52px / 2);
-  height: calc(88px / 2);
-  border-radius: 50px;
-  background-size: 100% 200%; //100% of width 200% height
-  animation: colorSlide 10s linear infinite, movingMouse 10s ease-out infinite;
-  margin: 0 auto;
+    background: $dark
+        linear-gradient(
+            transparent 0%,
+            transparent 50%,
+            $green 50%,
+            $green 100%
+        );
+    position: relative;
+    width: calc(52px / 2);
+    height: calc(88px / 2);
+    border-radius: 50px;
+    background-size: 100% 200%; //100% of width 200% height
+    animation: colorSlide 10s linear infinite, movingMouse 10s ease-out infinite;
+    margin: 0 auto;
 }
 
 .hero__animation:before,
 .hero__animation:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
 }
 
 .hero__animation:before {
-  //coverring to make the effect
-  width: calc(48px / 2);
-  height: calc(84px / 2);
-  background-color: $dark-green;
-  border-radius: 50px;
+    //coverring to make the effect
+    width: calc(48px / 2);
+    height: calc(84px / 2);
+    background-color: $dark-green;
+    border-radius: 50px;
 }
 
 .hero__animation:after {
-  //the ball
-  background-color: $mild;
-  width: 5px;
-  height: 5px;
-  border-radius: 100%;
-  animation: movingBall 10s linear infinite;
+    //the ball
+    background-color: $mild;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    animation: movingBall 10s linear infinite;
+}
+
+.hero__subtitle,
+.guide__title,
+.about__title,
+.contact__title,
+.form__label,
+.contact__item {
+    color: $mild;
 }
 
 @keyframes colorSlide {
-  0% {
-    background-position: 0% 100%;
-  }
+    0% {
+        background-position: 0% 100%;
+    }
 
-  20% {
-    background-position: 0% 0%;
-  }
+    20% {
+        background-position: 0% 0%;
+    }
 
-  21% {
-    background-color: $mild;
-  }
+    21% {
+        background-color: $mild;
+    }
 
-  29.99% {
-    background-color: $green;
-    background-position: 0% 0%;
-  }
+    29.99% {
+        background-color: $green;
+        background-position: 0% 0%;
+    }
 
-  30% {
-    background-color: $mild;
-    background-position: 0% 100%;
-  }
+    30% {
+        background-color: $mild;
+        background-position: 0% 100%;
+    }
 
-  50% {
-    background-position: 0% 0%;
-  }
+    50% {
+        background-position: 0% 0%;
+    }
 
-  51% {
-    background-color: $mild;
-  }
+    51% {
+        background-color: $mild;
+    }
 
-  59% {
-    background-color: $green;
-    background-position: 0% 0%;
-  }
+    59% {
+        background-color: $green;
+        background-position: 0% 0%;
+    }
 
-  60% {
-    background-color: $mild;
-    background-position: 0% 100%;
-  }
+    60% {
+        background-color: $mild;
+        background-position: 0% 100%;
+    }
 
-  80% {
-    background-position: 0% 0%;
-  }
+    80% {
+        background-position: 0% 0%;
+    }
 
-  81% {
-    background-color: $mild;
-  }
+    81% {
+        background-color: $mild;
+    }
 
-  90%,
-  100% {
-    background-color: $green;
-  }
+    90%,
+    100% {
+        background-color: $green;
+    }
 }
 
 @keyframes movingBall {
-  0% {
-    opacity: 1;
-    transform: scale(1) translateY(-15px);
-  }
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(-15px);
+    }
 
-  6% {
-    opacity: 1;
-    transform: scale(0.9) translateY(5px);
-  }
+    6% {
+        opacity: 1;
+        transform: scale(0.9) translateY(5px);
+    }
 
-  14% {
-    opacity: 0;
-    transform: scale(0.4) translateY(40px);
-  }
+    14% {
+        opacity: 0;
+        transform: scale(0.4) translateY(40px);
+    }
 
-  15%,
-  19% {
-    opacity: 0;
-    transform: scale(0.4) translateY(-15px);
-  }
+    15%,
+    19% {
+        opacity: 0;
+        transform: scale(0.4) translateY(-15px);
+    }
 
-  28%,
-  29.99% {
-    opacity: 1;
-    transform: scale(1) translateY(-15px);
-  }
+    28%,
+    29.99% {
+        opacity: 1;
+        transform: scale(1) translateY(-15px);
+    }
 
-  30% {
-    opacity: 1;
-    transform: scale(1) translateY(-15px);
-  }
+    30% {
+        opacity: 1;
+        transform: scale(1) translateY(-15px);
+    }
 
-  36% {
-    opacity: 1;
-    transform: scale(0.9) translateY(5px);
-  }
+    36% {
+        opacity: 1;
+        transform: scale(0.9) translateY(5px);
+    }
 
-  44% {
-    opacity: 0;
-    transform: scale(0.4) translateY(40px);
-  }
+    44% {
+        opacity: 0;
+        transform: scale(0.4) translateY(40px);
+    }
 
-  //half of the animation
-  45%,
-  49% {
-    opacity: 0;
-    transform: scale(0.4) translateY(-15px);
-  }
+    //half of the animation
+    45%,
+    49% {
+        opacity: 0;
+        transform: scale(0.4) translateY(-15px);
+    }
 
-  58%,
-  59.99% {
-    opacity: 1;
-    transform: scale(1) translateY(-15px);
-  }
+    58%,
+    59.99% {
+        opacity: 1;
+        transform: scale(1) translateY(-15px);
+    }
 
-  60% {
-    opacity: 1;
-    transform: scale(1) translateY(-15px);
-  }
+    60% {
+        opacity: 1;
+        transform: scale(1) translateY(-15px);
+    }
 
-  66% {
-    opacity: 1;
-    transform: scale(0.9) translateY(5px);
-  }
+    66% {
+        opacity: 1;
+        transform: scale(0.9) translateY(5px);
+    }
 
-  74% {
-    opacity: 0;
-    transform: scale(0.4) translateY(40px);
-  }
+    74% {
+        opacity: 0;
+        transform: scale(0.4) translateY(40px);
+    }
 
-  75%,
-  79% {
-    opacity: 0;
-    transform: scale(0.4) translateY(-15px);
-  }
+    75%,
+    79% {
+        opacity: 0;
+        transform: scale(0.4) translateY(-15px);
+    }
 
-  88%,
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(-15px);
-  }
+    88%,
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(-15px);
+    }
 }
 
 @keyframes movingMouse {
-  0% {
-    transform: translateY(0);
-  }
+    0% {
+        transform: translateY(0);
+    }
 
-  20% {
-    transform: translateY(8px);
-  }
+    20% {
+        transform: translateY(8px);
+    }
 
-  30% {
-    transform: translateY(0);
-  }
+    30% {
+        transform: translateY(0);
+    }
 
-  50% {
-    transform: translateY(8px);
-  }
+    50% {
+        transform: translateY(8px);
+    }
 
-  60% {
-    transform: translateY(0);
-  }
+    60% {
+        transform: translateY(0);
+    }
 
-  80% {
-    transform: translateY(8px);
-  }
+    80% {
+        transform: translateY(8px);
+    }
 
-  90% {
-    transform: translateY(0);
-  }
+    90% {
+        transform: translateY(0);
+    }
 }
 
 @keyframes movingText {
-  0% {
-    transform: translateY(0);
-    letter-spacing: 6px;
-  }
+    0% {
+        transform: translateY(0);
+        letter-spacing: 6px;
+    }
 
-  20% {
-    transform: translateY(2px);
-    letter-spacing: 4px;
-  }
+    20% {
+        transform: translateY(2px);
+        letter-spacing: 4px;
+    }
 
-  30% {
-    transform: translateY(0);
-    letter-spacing: 6px;
-  }
+    30% {
+        transform: translateY(0);
+        letter-spacing: 6px;
+    }
 
-  50% {
-    transform: translateY(2px);
-    letter-spacing: 4px;
-  }
+    50% {
+        transform: translateY(2px);
+        letter-spacing: 4px;
+    }
 
-  60% {
-    transform: translateY(0);
-    letter-spacing: 6px;
-  }
+    60% {
+        transform: translateY(0);
+        letter-spacing: 6px;
+    }
 
-  80% {
-    transform: translateY(2px);
-    letter-spacing: 4px;
-  }
+    80% {
+        transform: translateY(2px);
+        letter-spacing: 4px;
+    }
 
-  90% {
-    transform: translateY(0);
-    letter-spacing: 6px;
-  }
+    90% {
+        transform: translateY(0);
+        letter-spacing: 6px;
+    }
 }
 
 @keyframes changeTextColor {
-  0% {
-    color: $light;
-  }
+    0% {
+        color: $light;
+    }
 
-  21% {
-    color: $green;
-  }
+    21% {
+        color: $dark;
+    }
 
-  30% {
-    color: $light;
-  }
+    30% {
+        color: $light;
+    }
 
-  51% {
-    color: $green;
-  }
+    51% {
+        color: $dark;
+    }
 
-  60% {
-    color: $light;
-  }
+    60% {
+        color: $light;
+    }
 
-  81% {
-    color: $green;
-  }
+    81% {
+        color: $dark;
+    }
 
-  90% {
-    color: $light;
-  }
+    90% {
+        color: $light;
+    }
 
-  100% {
-    color: $light;
-  }
+    100% {
+        color: $light;
+    }
 }
 
 //work section
 .card {
-  padding: 2.441em calc(100% - 88.75%) 3.052em;
-  background-color: $dark-green;
-  min-height: calc(326px - 2.441em - 3.052em);
-  &__header {
     position: relative;
-  }
-  &--light {
-    background-color: $green;
-  }
-  &__head {
-    position: absolute;
-    color: $dark;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 0.64em;
-  }
-  &__head--over {
-    position: absolute;
-    left: 81.0483871%;
-    color: $light;
-    width: 900px;
-  }
-
-  &__title {
-    font-family: "Transat Text";
-    font-size: 1.25em;
-    text-transform: uppercase;
-    text-decoration: underline;
-    font-weight: 900;
-    display: inline-block;
-  }
-
-  &__number {
-    position: relative;
-    font-family: "Niveau Grotesk";
-    font-weight: medium;
-    font-size: 2.441em;
-    display: inline-block;
-  }
-  &__number--positioned {
-    &--dark {
-      color: $dark-green;
-    }
-    position: absolute;
-    color: $green;
-    top: -3px;
-    left: 3px;
-    font-size: 1em;
-  }
-  &__number--desktop {
-    display: none;
-  }
-
-  &__figure {
-    position: absolute;
-    transform: translateX(-81.0483871%);
-    max-height: 248px;
-    max-width: 320px;
-    overflow: hidden;
-  }
-
-  &__image {
-    max-width: 100%;
-  }
-
-  &__body {
-    //clearfix for bottom link in float
-    &::after {
-      content: "";
-      clear: both;
-      display: table;
-    }
-    position: relative;
-    z-index: 1;
-    color: $white;
-    font-family: "Niveau Grotesk";
-    line-height: 1.4;
-    margin-top: 6em;
-  }
-  &__link {
-    &::after {
-      background-color: $green;
+    padding: 2.441em calc(100% - 88.75%) 3.052em;
+    background-color: $dark-green;
+    &:nth-of-type(even) {
+        background-color: $green;
+        .card__number--positioned {
+            color: $dark-green;
+        }
+        .card__link::after {
+            background-color: $dark-green;
+        }
     }
 
-    font-size: 1.25em;
-    float: right;
-    color: $dark;
-    margin-top: 2.441em;
-    margin-right: 1em;
-  }
-
-  &__link--dark {
-    &::after {
-      background-color: $dark-green;
+    &__head {
+        color: $dark;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 0.64em;
     }
-  }
+    &__head--over {
+        color: $light;
+        display: none;
+        visibility: hidden;
+    }
+
+    &__title {
+        font-size: 1.25em;
+        letter-spacing: -0.14px;
+        text-transform: uppercase;
+        text-decoration: underline;
+        font-weight: 900;
+        line-height: 1.4;
+        display: inline-block;
+    }
+
+    &__number {
+        position: relative;
+        font-weight: 500;
+        font-size: 2.441em;
+        display: inline-block;
+    }
+    &__number--positioned {
+        position: absolute;
+        color: $green;
+        top: -3px;
+        left: 3px;
+        font-size: 1em;
+    }
+    &__number--project {
+        color: $dark-green;
+    }
+    &__number--desktop {
+        display: none;
+    }
+
+    &__figure {
+        margin-top: 2em;
+        width: 100%;
+    }
+
+    &__image {
+        max-width: 100%;
+        vertical-align: middle;
+
+        height: auto;
+    }
+    &__content {
+        max-width: 480px;
+    }
+    &__body {
+        //clearfix for bottom link in float
+        &::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        position: relative;
+        z-index: 1;
+        margin-top: 1.563em;
+    }
+    &__link {
+        &::after {
+            background-color: $green;
+            top: 0.75em;
+        }
+        display: block;
+        font-size: 1.25em;
+        float: right;
+        color: $dark;
+        margin-top: 2.441em;
+        margin-right: 1em;
+    }
+    &__link--dark {
+        &::after {
+            background-color: $dark-green;
+        }
+    }
+}
+.card {
+    .card__link {
+        &:hover,
+        &:focus {
+            &::after {
+                top: 1.25em;
+            }
+        }
+    }
 }
 
 //all links with colored bottom
 .link__underscore {
-  &::after {
-    content: "";
-    position: absolute;
-    display: block;
-    top: 0.75em;
-    left: 20%;
-    height: 0.75em;
-    width: 90%;
-    z-index: -1;
-  }
-  position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        left: 20%;
+        height: 0.75em;
+        width: 90%;
+        z-index: -1;
+    }
+    position: relative;
+    &:hover,
+    &:focus {
+        &::after {
+            height: 0.25em;
+            top: 1em;
+        }
+    }
+    &:active {
+        color: $mild;
+    }
 }
 
 //remove before adding new rules on footer
 .footer {
-  background-color: $light;
-  max-width: 100%;
-  overflow: hidden;
-  padding: 0 calc((100% - 88.75%) / 2);
-  &__intro {
-    font-size: 1.563em;
-    font-weight: 500;
-    margin-top: 1.95312em;
-    text-align: center;
-    font-family: "Niveau Grotesk";
-  }
-  &__link {
-    &::after {
-      background-color: $dark;
-      top: 0.4em;
+    background-color: $light;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0 calc((100% - 88.75%) / 2) 1.563em;
+    &__intro {
+        font-size: 1.563em;
+        font-weight: 500;
+        margin: 1.95312em 0;
+        text-align: center;
+        color: $dark-green;
     }
-    color: $dark-green;
-    position: relative;
-    display: block;
-    width: fit-content;
-    margin: 1.95312em auto;
-    font-size: 1.563em;
-    font-family: serif;
-    font-family: "Niveau Grotesk";
-    font-weight: 900;
-    z-index: 1;
-  }
-  &__actions {
-    justify-content: space-between;
-  }
-  &__social__logo {
-    width: 50px;
-    //correct the bottom of svg
-    margin-bottom: -4%;
+    &__link {
+        &::after {
+            background-color: $dark;
+            top: 0.4em;
+        }
+        color: $dark-green;
+        position: relative;
+        display: block;
+        width: fit-content;
+        margin: 0 auto 1.95312em;
+        font-size: 1.563em;
+        font-weight: 900;
+        z-index: 1;
+    }
+    &__socials__link {
+        margin-left: 0.4em;
+    }
+    &__actions {
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+.icon-github__logo,
+.icon-facebook__logo,
+.icon-linkedin__logo {
+    font-size: 45px;
     height: auto;
-    fill: $green;
-  }
+    color: $green;
+    &:hover,
+    &:focus {
+        color: $dark-green;
+    }
 }
 
 .secondary__link {
-  font-family: "Niveau Grotesk";
-  text-transform: lowercase;
-  color: $green;
+    text-transform: lowercase;
+    color: $green;
+    &:hover,
+    &:focus {
+        color: $dark-green;
+    }
 }
 
 .secondary__item:not(:last-child) {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
-.footer__actions {
-  align-items: flex-end;
+//project page and contact
+
+.hero__wrapper--project {
+    padding-top: 1.953em;
 }
+
+.hero__title--project,
+.me__title {
+    display: block;
+    width: 100%;
+    color: $dark;
+    font-size: 1.563em;
+    font-weight: 900;
+    letter-spacing: -0.14px;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.hero__figure {
+    margin-top: 1.953em;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+}
+
+.hero__img {
+    max-width: 100%;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+
+.about,
+.me__content,
+.card__body,
+.contact__definition {
+    color: white;
+
+    line-height: 1.4;
+    font-weight: 300;
+}
+
+.about,
+.contact {
+    padding: 2.441em calc((100% - 77.5%) / 2);
+    background-image: radial-gradient(
+        farthest-corner at -60px -100px,
+        $green 0%,
+        $dark-green 70%
+    );
+    &__container {
+        max-width: 1300px;
+        width: 100%;
+    }
+}
+
+.about {
+    &__content {
+        margin-bottom: 2em;
+        max-width: calc(1em * 30);
+    }
+    &__link:not(:last-child) {
+        margin-bottom: 1em;
+    }
+    &__link:last-child {
+        margin-bottom: 1.5em;
+    }
+    &__figure {
+        margin-bottom: 0.64em;
+    }
+    &__img {
+        max-width: 100%;
+    }
+    &__link {
+        display: block;
+        width: fit-content;
+        font-size: 1.25em;
+        color: $dark;
+        z-index: 1;
+        &::after {
+            background-color: $green;
+            top: 0.75em;
+        }
+        &:hover,
+        &:focus {
+            &::after {
+                top: 1.25em;
+            }
+        }
+    }
+}
+
+.guide,
+.me {
+    background-color: $green;
+}
+
+.guide__contain {
+    padding: 2.441em calc((100% - 77.5%) / 2);
+}
+
+.about__title,
+.guide__title,
+.guide__subtitle,
+.contact__title,
+.footer__link,
+.form__submit,
+.main__link,
+.hero__title,
+.card__title,
+.me__title,
+.hero__title--project,
+.hero__link,
+.error,
+.feedback {
+    font-family: $Transat;
+}
+
+.guide__title,
+.about__title,
+.contact__title {
+    font-size: 1.25em;
+    text-transform: "uppercase";
+    font-weight: 900;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1em;
+    letter-spacing: 2px;
+}
+
+.guide {
+    &__subtitle {
+        display: block;
+        width: 100%;
+        color: $dark;
+        font-weight: 900;
+        margin-bottom: 1.2em;
+    }
+    &__font {
+        margin-bottom: 3.052em;
+    }
+    &__fonttitle,
+    &__colors {
+        color: $light;
+    }
+    &__fontexemple {
+        color: white;
+        font-weight: 300;
+        line-height: 1.4;
+        max-width: calc(1em * 24);
+    }
+    &__fonttitle {
+        display: block;
+        margin-bottom: 0.64em;
+    }
+
+    &__container:not(:last-of-type) {
+        margin-bottom: 2em;
+    }
+    &__subtitle--offset {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &__colors {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin: 0 -10px;
+    }
+}
+
+.color {
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 1.75em;
+    margin: 10px;
+    &::after {
+        content: "";
+        margin: 0.5em auto 0;
+        display: block;
+        width: 67px;
+        height: 67px;
+        background-color: blue;
+    }
+}
+
+.me {
+    padding-top: 78px;
+    &__title {
+        margin: 1.24992em 0 1.56252em;
+    }
+    &__img {
+        width: 100%;
+    }
+    &__figure {
+        margin-bottom: 1.953em;
+    }
+}
+
+.contact__form {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 4.768em;
+}
+
+.form {
+    &__label {
+        position: relative;
+        z-index: 1;
+        padding: 0.2em;
+        margin-bottom: -0.6em;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+    }
+
+    &__input {
+        box-sizing: border-box;
+        width: 100%;
+        background-color: transparent;
+        line-height: 1.4em;
+        font-size: 1em;
+        font-weight: 300;
+        padding: 0.625em;
+        border: 2px solid $green;
+        color: white;
+        margin-bottom: 3.052em;
+        &:focus {
+            border-color: $dark;
+            outline: none;
+        }
+    }
+    &__submit {
+        &::after {
+            background-color: $green;
+            top: 0.5em;
+        }
+        position: relative;
+        align-self: center;
+        text-transform: uppercase;
+        background-color: transparent;
+        border: none;
+        font-size: 1em;
+        letter-spacing: 1.4px;
+        z-index: 1;
+        min-height: 1.5em;
+    }
+}
+
+.contact {
+    &__item {
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        margin-bottom: 0.64em;
+    }
+    &__definition {
+        margin-bottom: 1em;
+    }
+}
+
+.me__links {
+    margin-top: 1.25em;
+}
+.me__link {
+    &::after {
+        background-color: $dark-green;
+        top: 0.5em;
+    }
+    &:not(:last-child) {
+        margin: 0 1em 1em 0;
+    }
+    display: inline-block;
+    font-size: 1.25em;
+    color: $dark;
+    position: relative;
+    z-index: 1;
+}
+
+.error {
+    color: red;
+    margin: -2em 0.5em 2em;
+}
+
+.feedback {
+    margin: 1em 0.5em;
+    color: $light;
+    &--error {
+        color: red;
+    }
+}
+
+// #canvas {
+//   width: 100%;
+//   height: 100vh;
+// }
